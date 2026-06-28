@@ -1,0 +1,53 @@
+{
+  "skill_name": "comfyui-core-node",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Implement Self-Attention Guidance (SAG) from the paper 'Improving Sample Quality of Diffusion Models Using Self-Attention Guidance' into a ComfyUI custom node. There is no reference code — use the paper description: during sampling, compute an attention map from the intermediate self-attention layers, create a blurred version of it, and use the difference as a guidance signal by modifying the noise prediction. The node should work as a drop-in modifier between a model loader and KSampler — it should take MODEL as input and output a patched MODEL. Expose parameters for: guidance scale, blur sigma, and which attention layers to extract from.",
+      "expected_output": "A ComfyUI custom node package at custom_nodes/comfyui_sag/ containing __init__.py, nodes.py, and attention_patches.py that implements SAG via model_options transformer_options patching. The node correctly clones the ModelPatcher, injects attention patches via set_model_options_patch_replace, extracts self-attention maps during sampling, computes a blur-difference guidance signal, and applies it. Files should follow ComfyUI node registration conventions with NODE_CLASS_MAPPINGS.",
+      "files": [],
+      "expectations": [
+        "Uses model.clone() before adding patches",
+        "Registers attention patches via patches_replace or set_model_attn1_patch",
+        "Reads from /comfy/ldm/modules/attention.py or greps /comfy/ for attention patterns",
+        "Uses extra_options to access sigma and block info",
+        "Produces correct NODE_CLASS_MAPPINGS and __init__.py",
+        "Exposes guidance_scale, blur_sigma, and layer selection parameters in INPUT_TYPES",
+        "Outputs MODEL type (not a raw tensor)",
+        "Does not hardcode device or dtype assumptions"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write a ComfyUI custom node that modifies the noise schedule mid-sampling. The node should take a LATENT, a MODEL, and a custom sigma curve defined by a tensor input (FLOAT values representing a list of sigma values). It should override the default sigma schedule with the user-provided one and run the sampling with it. The output should be the denoised LATENT. Make this a self-contained sampling node — not a KSampler modifier, but a node that performs its own sampling loop using ComfyUI's sample_custom or equivalent.",
+      "expected_output": "A ComfyUI custom node that takes MODEL, LATENT, CONDITIONING (pos/neg), and a custom sigma tensor, performs a full sampling loop with the custom schedule, and returns a denoised LATENT. The node uses comfy.sample.sample_custom() or comfy.samplers with model.model_options. It correctly handles the LATENT dict contract (preserving noise_mask), uses KSampler or equivalent, and properly converts user-provided sigma values to the model's sigma space.",
+      "files": [],
+      "expectations": [
+        "Uses comfy.samplers.KSampler or comfy.sample.sample_custom",
+        "Does not use the standard KSampler node — implements its own sampling loop",
+        "Converts user-provided float list to a sigma tensor correctly",
+        "Preserves LATENT dict keys (noise_mask, batch_index)",
+        "Clones the model before modifying model_options",
+        "Handles CFG scale as an input parameter",
+        "Uses comfy.sample.prepare_noise for noise generation",
+        "Returns a dict with 'samples' key (LATENT contract)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I have a HuggingFace Diffusion Transformer (DiT) model from 'PixArt-Alpha/PixArt-XL-2-1024-MS' that I want to use as the UNet in a standard ComfyUI KSampler workflow. Write a custom node that loads this model from HuggingFace, wraps it so it's compatible with ComfyUI's ModelPatcher and sampling pipeline, and outputs a MODEL that can connect to KSampler. The model uses T5 text encoding and has a different forward signature than standard UNets. Handle the input/output tensor conversion, timestep handling, and device management properly.",
+      "expected_output": "A ComfyUI custom node package with a model loader node that downloads/loads the PixArt-Alpha DiT from HuggingFace, wraps it in an adapter class that matches ComfyUI's expected forward signature, wraps it in a ModelPatcher with proper load_device/offload_device, and registers it with ComfyUI's supported_models pattern if applicable. The output MODEL can connect directly to KSampler.",
+      "files": [],
+      "expectations": [
+        "Loads the model using HuggingFace APIs (or describes the loading approach)",
+        "Creates an adapter wrapper that translates ComfyUI forward(x, timestep, context) to the model's expected signature",
+        "Wraps in ModelPatcher with correct device handling via model_management",
+        "Handles dtype conversion between the HF model and ComfyUI's tensor types",
+        "Sets up model.model_options with transformer_options",
+        "Returns MODEL type (ModelPatcher instance, not raw module)",
+        "Addresses how conditioning (text embeddings) will flow through the model",
+        "Does not hardcode the checkpoint path — uses user-provided path or hub download"
+      ]
+    }
+  ]
+}
