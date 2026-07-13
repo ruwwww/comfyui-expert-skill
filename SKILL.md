@@ -72,10 +72,14 @@ This skill is organized by domain. Read the relevant reference file before imple
 | Latent space operations | `references/core/latent_ops.md` | LATENT type handling, VAE encode/decode, mask-aware operations |
 | Conditioning & text encoders | `references/core/conditioning.md` | CLIP/T5 conditioning structure, ControlNet injection, conditioning manipulation |
 | Model architecture integration | `references/core/model_architecture.md` | Registering new architectures, supported_models pattern, wrapping diffusers models |
+| ComfyUI Inventory | `references/core/comfyui_inventory.md` | Discovering and caching installed nodes and models for graph validation |
+| Advanced LoRAs & Metadata | `references/core/advanced_lora_metadata.md` | Subclassing ModelPatcher, clone metadata stashing, and lazy load header parsing |
 | Dataflow & activation patching | `references/pipelines/activation_patching.md` | set_model_patch, forward-pass hooks, patcher_extension wrappers |
+| API & Workflow Integration | `references/core/api_workflow_integration.md` | Connecting custom nodes to comfyui-api and comfyui-workflow-builder systems |
 | Quantization Layouts & Math | `references/optimization/quant_principles.md` | Applying SVDQuant, OrbitQuant, ConvRot, or custom layout dequantizations |
 | Safetensor Serialization | `references/optimization/safetensor_metadata.md` | Formatting JSON header metadata and custom weight parameter suffixes |
 | Layout Registry & Loading | `references/optimization/layout_registration.md` | Registering layout classes to QUANT_ALGOS and monkeypatching core ops loaders |
+| GGUF Custom Tensors | `references/optimization/gguf_custom_tensors.md` | Subclassing torch.Tensor for GGUF/GGML weights and intercepting state dict loads |
 | `--fast` Performance Options | `references/optimization/fast_optimizations.md` | Reapplying CUDA accumulation configurations, CuDNN autotuning, and FP8 modes |
 | NVIDIA GPU Profiling | `references/optimization/nvidia_profiling.md` | Setting up Nsight Systems (nsys), Nsight Compute (ncu), and CUDA benchmarking timers |
 | comfy-kitchen Integration | `references/optimization/comfy_kitchen.md` | Detailing comfy-kitchen to ComfyUI touch points and hardware-to-backend mappings |
