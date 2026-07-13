@@ -65,14 +65,19 @@ This skill is organized by domain. Read the relevant reference file before imple
 
 | Domain | File | Read when... |
 |--------|------|-------------|
-| Node registration & type system | `references/node_registration.md` | Writing any new node — INPUT_TYPES, RETURN_TYPES, IS_CHANGED, CATEGORY |
-| Model management & loading | `references/model_management.md` | Loading checkpoints, wrapping foreign models, ModelPatcher usage |
-| Attention mechanisms & patching | `references/attention_patching.md` | Injecting attention processors, cross/self-attention hooks, IP-Adapter style patches |
-| Sampling pipeline | `references/sampling_pipeline.md` | Custom samplers, CFGGuider, noise schedules, post-CFG callbacks |
-| Latent space operations | `references/latent_ops.md` | LATENT type handling, VAE encode/decode, mask-aware operations |
-| Conditioning & text encoders | `references/conditioning.md` | CLIP/T5 conditioning structure, ControlNet injection, conditioning manipulation |
-| Model architecture integration | `references/model_architecture.md` | Registering new architectures, supported_models pattern, wrapping diffusers models |
-| Dataflow & activation patching | `references/activation_patching.md` | set_model_patch, forward-pass hooks, patcher_extension wrappers |
+| Node registration & type system | `references/core/node_registration.md` | Writing any new node — INPUT_TYPES, RETURN_TYPES, IS_CHANGED, CATEGORY |
+| Model management & loading | `references/core/model_management.md` | Loading checkpoints, wrapping foreign models, ModelPatcher usage |
+| Attention mechanisms & patching | `references/pipelines/attention_patching.md` | Injecting attention processors, cross/self-attention hooks, IP-Adapter style patches |
+| Sampling pipeline | `references/pipelines/sampling_pipeline.md` | Custom samplers, CFGGuider, noise schedules, post-CFG callbacks |
+| Latent space operations | `references/core/latent_ops.md` | LATENT type handling, VAE encode/decode, mask-aware operations |
+| Conditioning & text encoders | `references/core/conditioning.md` | CLIP/T5 conditioning structure, ControlNet injection, conditioning manipulation |
+| Model architecture integration | `references/core/model_architecture.md` | Registering new architectures, supported_models pattern, wrapping diffusers models |
+| Dataflow & activation patching | `references/pipelines/activation_patching.md` | set_model_patch, forward-pass hooks, patcher_extension wrappers |
+| Quantization Layouts & Math | `references/optimization/quant_principles.md` | Applying SVDQuant, OrbitQuant, ConvRot, or custom layout dequantizations |
+| Safetensor Serialization | `references/optimization/safetensor_metadata.md` | Formatting JSON header metadata and custom weight parameter suffixes |
+| Layout Registry & Loading | `references/optimization/layout_registration.md` | Registering layout classes to QUANT_ALGOS and monkeypatching core ops loaders |
+| `--fast` Performance Options | `references/optimization/fast_optimizations.md` | Reapplying CUDA accumulation configurations, CuDNN autotuning, and FP8 modes |
+
 
 ## Paper-to-Code Workflow
 
@@ -81,11 +86,11 @@ When implementing a research paper into ComfyUI, follow this decision tree:
 ### Step 1: Parse the contribution
 
 Read the paper (or description) and classify what it changes:
-- **Attention mechanism** → read `references/attention_patching.md`
-- **Sampling/guidance** → read `references/sampling_pipeline.md`
-- **Model architecture** → read `references/model_architecture.md`
-- **Conditioning/encoding** → read `references/conditioning.md`
-- **Latent/VAE processing** → read `references/latent_ops.md`
+- **Attention mechanism** → read `references/pipelines/attention_patching.md`
+- **Sampling/guidance** → read `references/pipelines/sampling_pipeline.md`
+- **Model architecture** → read `references/core/model_architecture.md`
+- **Conditioning/encoding** → read `references/core/conditioning.md`
+- **Latent/VAE processing** → read `references/core/latent_ops.md`
 
 Is there a reference implementation? If yes, read it. If no, proceed to Step 2.
 
