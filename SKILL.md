@@ -78,6 +78,7 @@ This skill is organized by domain. Read the relevant reference file before imple
 | Layout Registry & Loading | `references/optimization/layout_registration.md` | Registering layout classes to QUANT_ALGOS and monkeypatching core ops loaders |
 | `--fast` Performance Options | `references/optimization/fast_optimizations.md` | Reapplying CUDA accumulation configurations, CuDNN autotuning, and FP8 modes |
 | NVIDIA GPU Profiling | `references/optimization/nvidia_profiling.md` | Setting up Nsight Systems (nsys), Nsight Compute (ncu), and CUDA benchmarking timers |
+| comfy-kitchen Integration | `references/optimization/comfy_kitchen.md` | Detailing comfy-kitchen to ComfyUI touch points and hardware-to-backend mappings |
 | Anima Model Architecture | `references/models/anima.md` | Researching Anima (Cosmos/Wan) token routing, tensor flow, and code locations |
 | FLUX Model Architecture | `references/models/flux.md` | Researching FLUX double/single-stream blocks, RoPE mapping, and layers |
 | Qwen Image Model Architecture | `references/models/qwen_image.md` | Researching Qwen VL cross-attention resampler bridges and visual token processing |
