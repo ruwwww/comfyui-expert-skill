@@ -1,5 +1,5 @@
 ---
-name: comfyui-core-node
+name: comfyui-expert-skill
 description: >
   Expert skill for developing ComfyUI custom nodes that touch ComfyUI's internal
   architecture — model management, attention patching, sampling pipeline, latent ops,
@@ -77,6 +77,12 @@ This skill is organized by domain. Read the relevant reference file before imple
 | Safetensor Serialization | `references/optimization/safetensor_metadata.md` | Formatting JSON header metadata and custom weight parameter suffixes |
 | Layout Registry & Loading | `references/optimization/layout_registration.md` | Registering layout classes to QUANT_ALGOS and monkeypatching core ops loaders |
 | `--fast` Performance Options | `references/optimization/fast_optimizations.md` | Reapplying CUDA accumulation configurations, CuDNN autotuning, and FP8 modes |
+| NVIDIA GPU Profiling | `references/optimization/nvidia_profiling.md` | Setting up Nsight Systems (nsys), Nsight Compute (ncu), and CUDA benchmarking timers |
+| Anima Model Architecture | `references/models/anima.md` | Researching Anima (Cosmos/Wan) token routing, tensor flow, and code locations |
+| FLUX Model Architecture | `references/models/flux.md` | Researching FLUX double/single-stream blocks, RoPE mapping, and layers |
+| Qwen Image Model Architecture | `references/models/qwen_image.md` | Researching Qwen VL cross-attention resampler bridges and visual token processing |
+| Krea Model Architecture | `references/models/krea.md` | Researching Krea consistency U-Net models, step mappings, and parameters |
+| SDXL Model Architecture | `references/models/sdxl.md` | Researching SDXL dual text encoders, micro-conditioning, and 2D UNet backbone |
 
 
 ## Paper-to-Code Workflow
